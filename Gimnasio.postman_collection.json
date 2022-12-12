@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "c6419b0f-c813-43f0-af2c-dd30fad6eb00",
+		"name": "Gimnasio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"sergio\",\r\n    \"email\": \"sergio@sergio.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"email\": \"sergio@sergio.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Own User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sergio}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/users",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exercises",
+			"item": [
+				{
+					"name": "New Exercise",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_admin}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "hola",
+									"type": "default"
+								},
+								{
+									"key": "type",
+									"value": "cardio",
+									"type": "default"
+								},
+								{
+									"key": "muscle_group",
+									"value": "tren inferior",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Vamos a ejercitar gluteos, abdominales y piernas es una rutina dura.",
+									"type": "default"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/sacki/Downloads/17-junio-rafalafena-.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/exercises",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Exercises",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/exercises?type=cardio",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"exercises"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "cardio"
+								},
+								{
+									"key": "muscle_group",
+									"value": "piernas",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercise",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/exercises/2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"exercises",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete exercise",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_admin}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/exercises/5",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"exercises",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mod exercise",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_admin}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "acabo de editar esto",
+									"type": "default"
+								},
+								{
+									"key": "type",
+									"value": "cardio",
+									"type": "default"
+								},
+								{
+									"key": "muscle_group",
+									"value": "acabo de editar esto",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "acabo de editar esto",
+									"type": "default"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/sacki/Downloads/1fa93.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/exercises/6",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"exercises",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Exercise",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_sergio}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/exercises/2/likes",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"exercises",
+								"2",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "token_sergio",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "token_admin",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "token_paco",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
