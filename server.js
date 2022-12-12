@@ -33,6 +33,7 @@ const {
     newUser,
     loginUser,
     getOwnUser,
+    getDataUser,
     editUser,
 } = require('./controllers/users');
 
@@ -44,6 +45,9 @@ app.post('/users/login', loginUser);
 
 // Info of a logged user.
 app.get('/users', authUser, getOwnUser);
+
+// Info page of a logged user.
+app.get('/users/:idUser', authUser, getDataUser);
 
 // Edit and user.
 app.put('/users/:idUser/edit', authUser, editUser);
