@@ -12,7 +12,22 @@ const generateError = (message, code) => {
     return err;
 };
 
-// SAVE PHOTO
+/**
+ * #####################
+ * ## VALIDATE SCHEMA ##
+ * #####################
+ */
+
+const validateSchema = async (schema, data) => {
+    const validation = schema.validate(data);
+    if (validation.error) throw generateError(validation.error.message, 400);
+};
+
+/**
+ * ################
+ * ## SAVE PHOTO ##
+ * ################
+ */
 const savePhoto = async (img) => {
     // We create an absolute path to the directory where we are going to upload the images.
     const uploadsPath = path.join(__dirname, process.env.UPLOADS_DIR);
@@ -45,7 +60,11 @@ const savePhoto = async (img) => {
     return imgName;
 };
 
-// DELETE PHOTO
+/**
+ * ##################
+ * ## DELETE PHOTO ##
+ * ##################
+ */
 const deletePhoto = async (imgName) => {
     try {
         // We create the absolute path to the image we want to delete.
@@ -74,4 +93,5 @@ module.exports = {
     generateError,
     savePhoto,
     deletePhoto,
+    validateSchema,
 };

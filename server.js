@@ -29,7 +29,12 @@ const isNormal = require('./middlewares/isNormal.js');
 const authUserOptional = require('./middlewares/authUserOptionaL.js');
 
 // USERS ENDPOINTS
-const { newUser, loginUser, getOwnUser } = require('./controllers/users');
+const {
+    newUser,
+    loginUser,
+    getOwnUser,
+    editUser,
+} = require('./controllers/users');
 
 // User registration.
 app.post('/users/register', newUser);
@@ -39,6 +44,9 @@ app.post('/users/login', loginUser);
 
 // Info of a logged user.
 app.get('/users', authUser, getOwnUser);
+
+// Edit and user.
+/* app.put('/users/:idUser/edit', authUser, editUser); */
 
 // EXERCISES ENDPOINTS
 const {
