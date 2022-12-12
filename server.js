@@ -46,7 +46,7 @@ app.post('/users/login', loginUser);
 app.get('/users', authUser, getOwnUser);
 
 // Edit and user.
-/* app.put('/users/:idUser/edit', authUser, editUser); */
+app.put('/users/:idUser/edit', authUser, editUser);
 
 // EXERCISES ENDPOINTS
 const {

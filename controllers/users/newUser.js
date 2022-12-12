@@ -1,5 +1,5 @@
 const insertUserQuery = require('../../db/userQueries/insertUserQuery');
-const newUserSchema = require('../validator/newUserSchema');
+const newUserSchema = require('../../validator/newUserSchema');
 
 const { generateError, savePhoto, validateSchema } = require('../../helpers');
 

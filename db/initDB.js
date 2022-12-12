@@ -24,6 +24,7 @@ async function main() {
                 username VARCHAR(30) UNIQUE NOT NULL,
                 email VARCHAR(100) UNIQUE NOT NULL,
                 password VARCHAR(100) NOT NULL, 
+                avatar VARCHAR(100),
                 role ENUM('admin', 'normal') NOT NULL DEFAULT 'normal',
                 createdAt TIMESTAMP NOT NULL,
                 modifiedAt TIMESTAMP
