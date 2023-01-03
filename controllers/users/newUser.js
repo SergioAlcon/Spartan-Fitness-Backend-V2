@@ -16,7 +16,7 @@ const newUser = async (req, res, next) => {
 
         // If any field is missing we throw an error.
         if (!username || !email || !password) {
-            throw generateError('Faltan campos', 400);
+            throw generateError('Faltan campos', 403);
         }
 
         // Variable donde almacenaremos el nombre de la imagen.
@@ -47,18 +47,9 @@ const newUser = async (req, res, next) => {
             registrationCode
         );
 
-        // Insertamos el usuario
-        await insertUserQuery(
-            username,
-            email,
-            password,
-            avatar,
-            registrationCode
-        );
-
         res.send({
             status: 'ok',
-            message: 'Usuario creado',
+            message: 'Usuario registrado, comprueba tu email para activarlo',
         });
     } catch (err) {
         next(err);

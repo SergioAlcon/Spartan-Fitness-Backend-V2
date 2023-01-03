@@ -18,16 +18,8 @@ const loginUser = async (req, res, next) => {
         const validPassword = await bcrypt.compare(password, user.password);
 
         // If the passwords do not match we throw an error.
-        if (!validPassword || user.length < 1) {
-            throw generateError('Email o contraseña incorrecta', 401);
-        }
-
-        // Si el usuario existe pero NO está activo lanzamos un error.
-        if (!user.active) {
-            throw generateError(
-                'Usuario pendiente de activar, comprueba tu correo para activarlo',
-                401
-            );
+        if (!validPassword) {
+            throw generateError('Contraseña incorrecta', 401);
         }
 
         // We generate an object with the information we want to add to the token.
