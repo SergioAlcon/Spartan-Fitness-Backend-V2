@@ -1,5 +1,4 @@
 const getConnection = require('../getConnection');
-
 const { generateError } = require('../../helpers');
 
 const selectUserByEmailQuery = async (email) => {
@@ -9,7 +8,7 @@ const selectUserByEmailQuery = async (email) => {
         connection = await getConnection();
 
         const [users] = await connection.query(
-            `SELECT id, password, role FROM users WHERE email = ?`,
+            `SELECT id, password, avatar, active, role FROM users WHERE email = ?`,
             [email]
         );
 

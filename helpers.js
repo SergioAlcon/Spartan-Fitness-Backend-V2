@@ -2,8 +2,7 @@ const fs = require('fs/promises');
 const path = require('path');
 const sharp = require('sharp');
 const { v4: uuid } = require('uuid');
-
-require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 
 // GENERATE ERROR
 const generateError = (message, code) => {
@@ -21,6 +20,46 @@ const generateError = (message, code) => {
 const validateSchema = async (schema, data) => {
     const validation = schema.validate(data);
     if (validation.error) throw generateError(validation.error.message, 400);
+};
+
+/**
+ * ##################
+ * ## VERIFY EMAIL ##
+ * ##################
+ */
+
+// Asignameos el API Key a sendgrid
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+const verifyEmail = async (email, registrationCode) => {
+    // Asunto del email
+    const subject = 'Activación de tu usuario SPARTAN Fitness';
+
+    // Mensaje que enviaremos al email del usuario
+    const emailBody = `
+    Te acabar de registrar en SPARTAN Fitness.
+    Pulsa este enlace para verificar tu cuenta: http://${process.env.MYSQL_HOST}:${process.env.PORT}/users/validate/${registrationCode}
+    `;
+
+    try {
+        const msg = {
+            to: email,
+            from: process.env.SENDGRID_FROM,
+            subject,
+            text: emailBody,
+            html: `
+                <div>
+                    <h1>${subject}</h1>
+                    <p>${emailBody}</p>
+                </div>
+                `,
+        };
+
+        // Enviamos el mensaje
+        await sgMail.send(msg);
+    } catch {
+        throw generateError('Error sending email');
+    }
 };
 
 /**
@@ -94,4 +133,5 @@ module.exports = {
     savePhoto,
     deletePhoto,
     validateSchema,
+    verifyEmail,
 };

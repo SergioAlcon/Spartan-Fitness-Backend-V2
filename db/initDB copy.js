@@ -25,8 +25,6 @@ async function main() {
                 email VARCHAR(100) UNIQUE NOT NULL,
                 password VARCHAR(100) NOT NULL, 
                 avatar VARCHAR(100),
-                registrationCode VARCHAR(100),
-                active BOOLEAN DEFAULT false,
                 role ENUM('admin', 'normal') NOT NULL DEFAULT 'normal',
                 createdAt TIMESTAMP NOT NULL,
                 modifiedAt TIMESTAMP
@@ -80,8 +78,8 @@ async function main() {
 
         await connection.query(
             `
-            INSERT INTO users (username, email, password, role, active, createdAt)
-            VALUES ('admin', 'admin@admin.com', ?, 'admin', true, ?)         
+            INSERT INTO users (username, email, password, role, createdAt)
+            VALUES ('admin', 'admin@admin.com', ?, 'admin', ?)         
             `,
             [hashedPassword, new Date()]
         );
@@ -92,14 +90,14 @@ async function main() {
 
         await connection.query(
             `
-            INSERT INTO users (username, email, password, role, active, createdAt)
-            VALUES ('Paco', 'paco@admin.com', ?, 'normal', true, ?),
-                   ('Sergio', 'sergio@sergio.com', ?, 'normal', true, ?),
-                   ('Pepelu', 'pepelu@pepelu.com', ?, 'normal', true, ?),
-                   ('Luis', 'luis@luis.com', ?, 'normal', true, ?),
-                   ('Rafa', 'rafa@rafa.com', ?, 'normal', true, ?),
-                   ('Borja', 'borja@borja.com', ?, 'normal', true, ?),
-                   ('Ana', 'ana@ana.com', ?, 'normal', true, ?)
+            INSERT INTO users (username, email, password, role, createdAt)
+            VALUES ('Paco', 'paco@admin.com', ?, 'normal', ?),
+                   ('Sergio', 'sergio@sergio.com', ?, 'normal', ?),
+                   ('Pepelu', 'pepelu@pepelu.com', ?, 'normal', ?),
+                   ('Luis', 'luis@luis.com', ?, 'normal', ?),
+                   ('Rafa', 'rafa@rafa.com', ?, 'normal', ?),
+                   ('Borja', 'borja@borja.com', ?, 'normal', ?),
+                   ('Ana', 'ana@ana.com', ?, 'normal', ?)
             
             `,
             [

@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 
-const { PORT } = process.env;
+const { PORT, /* UPLOADS_DIR, */ MYSQL_HOST } = process.env;
 
 const app = express();
 
@@ -21,6 +21,7 @@ app.use(fileUpload());
 
 //export uploads
 app.use('/uploads', express.static('./uploads'));
+/* app.use(express.static(UPLOADS_DIR)); */
 
 // MIDDLEWARES
 const authUser = require('./middlewares/authUser');
@@ -35,10 +36,14 @@ const {
     getOwnUser,
     getDataUser,
     editUser,
+    validateUser,
 } = require('./controllers/users');
 
 // User registration.
 app.post('/users/register', newUser);
+
+// User email verification.
+app.get('/users/validate/:registrationCode', validateUser);
 
 // User login.
 app.post('/users/login', loginUser);
@@ -47,7 +52,8 @@ app.post('/users/login', loginUser);
 app.get('/users', authUser, getOwnUser);
 
 // Info page of a logged user.
-app.get('/users/:idUser', authUser, getOwnUser);
+app.get('/users/:idUser', authUserOptional, getDataUser);
+/* app.get('/users/:idUser', authUser, getOwnUser); */
 
 // Edit and user.
 app.put('/users/:idUser/edit', authUser, editUser);
@@ -102,5 +108,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server listening at http://localhost:4000`);
+    console.log(`Server listening at http://${MYSQL_HOST}:${PORT}`);
 });

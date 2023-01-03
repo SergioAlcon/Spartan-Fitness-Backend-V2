@@ -1,9 +1,14 @@
 const getConnection = require('../getConnection');
 const bcrypt = require('bcrypt');
-
 const { generateError } = require('../../helpers');
 
-const insertUserQuery = async (username, email, password, avatar) => {
+const insertUserQuery = async (
+    username,
+    email,
+    password,
+    avatar,
+    registrationCode
+) => {
     let connection;
 
     try {
@@ -15,13 +20,13 @@ const insertUserQuery = async (username, email, password, avatar) => {
             [username]
         );
 
-        // If there is any user with that username we throw an error.
+        /* // If there is any user with that username we throw an error.
         if (usernameUsers.length > 0) {
             throw generateError(
                 'Ya existe un usuario con ese nombre en la base de datos',
                 403
             );
-        }
+        } */
 
         // We obtain an array of users based on the email or the established username.
         const [emailUsers] = await connection.query(
@@ -29,21 +34,35 @@ const insertUserQuery = async (username, email, password, avatar) => {
             [email]
         );
 
-        // If there is any user with that email, we launch an error.
+        /* // If there is any user with that email, we launch an error.
         if (emailUsers.length > 0) {
             throw generateError(
                 'Ya existe un usuario con ese email en la base de datos',
                 403
             );
-        }
+        } */
+
+        // Si existe algun usuario con ese email o con ese nombre de usuario lanzamos un error
+        if (emailUsers.length > 0 || usernameUsers.length > 0)
+            throw generateError(
+                'Ya existe un usuario con ese email o nombre en la base de datos',
+                403
+            );
 
         // We encrypt the password.
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // We create the user.
         await connection.query(
-            `INSERT INTO users (username, email, password, avatar, createdAt) VALUES (?, ?, ?, ?, ?)`,
-            [username, email, hashedPassword, avatar, new Date()]
+            `INSERT INTO users (username, email, password, avatar, registrationCode, createdAt) VALUES (?, ?, ?, ?, ?, ?)`,
+            [
+                username,
+                email,
+                hashedPassword,
+                avatar,
+                registrationCode,
+                new Date(),
+            ]
         );
     } finally {
         if (connection) connection.release();
