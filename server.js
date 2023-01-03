@@ -47,7 +47,7 @@ app.post('/users/login', loginUser);
 app.get('/users', authUser, getOwnUser);
 
 // Info page of a logged user.
-app.get('/users/:idUser', authUser, getDataUser);
+app.get('/users/:idUser', authUser, getOwnUser);
 
 // Edit and user.
 app.put('/users/:idUser/edit', authUser, editUser);
