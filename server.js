@@ -40,16 +40,19 @@ const {
     editUserPassword,
     editUserAvatar,
     validateUser,
+    confirmNewUserMail,
+    deleteUser,
+    listUserFavs,
 } = require('./controllers/users');
 
 // User registration.
 app.post('/users/register', newUser);
 
-// User email verification.
-app.get('/users/validate/:registrationCode', validateUser);
-
 // User login.
 app.post('/users/login', loginUser);
+
+// User email verification.
+app.get('/users/validate/:registrationCode', validateUser);
 
 // Info of a logged user.
 app.get('/users', authUser, getOwnUser);
@@ -58,7 +61,13 @@ app.get('/users', authUser, getOwnUser);
 app.get('/users/:idUser', authUserOptional, getDataUser);
 /* app.get('/users/:idUser', authUser, getOwnUser); */
 
-// Edit and user.
+// Listado de ejercicios favoritos del usuario
+app.get('/users/:idUser/favourites', authUser, listUserFavs);
+
+// Activamos de nuevo el usuario con nuevo correo
+app.post('/users/mail/:registrationCode', confirmNewUserMail);
+
+// Editamos username e email de Usuario.
 app.put('/users/:idUser', authUser, editUser);
 
 // Editamos la contraseña del usuario
@@ -69,6 +78,9 @@ app.put('/users/:idUser/password', authUser, editUserPassword);
 
 // Editamos el avatar del usuario.
 app.put('/users/:idUser/avatar', authUser, editUserAvatar);
+
+// Borramos usuario
+app.delete('/users/:idUser', deleteUser);
 
 // EXERCISES ENDPOINTS
 const {
@@ -84,17 +96,17 @@ const {
 // Create a new exercise.
 app.post('/exercises/new', isAdmin, newExercise);
 
-// List exercises.
-app.get('/exercises', authUserOptional, listExercises);
-
-// Info of a specific exercise.
-app.get('/exercises/:idExercise', authUserOptional, getExercise);
-
 // Like an exercise.
 app.post('/exercises/:idExercise/likes', isNormal, likeExercise);
 
 // Favorite an exercise.
 app.post('/exercises/:idExercise/favs', isNormal, favExercise);
+
+// List exercises.
+app.get('/exercises', authUserOptional, listExercises);
+
+// Info of a specific exercise.
+app.get('/exercises/:idExercise', authUserOptional, getExercise);
 
 // Modify an exercise.
 app.put('/exercises/:idExercise/edit', isAdmin, editExercise);

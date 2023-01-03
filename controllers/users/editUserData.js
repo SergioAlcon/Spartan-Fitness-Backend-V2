@@ -60,7 +60,7 @@ const editUserData = async (req, res, next) => {
         await updateUserDataQuery(
             name,
             surname,
-            birthday,
+            new Date(birthday),
             phone,
             street,
             postalCode,

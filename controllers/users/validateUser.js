@@ -1,27 +1,23 @@
-const selectUserByRegCodeQuery = require("../../db/userQueries/selectUserByRegCodeQuery");
-const updateUserRegCodeQuery = require("../../db/userQueries/updateUserRegCodeQuery");
+const selectUserByRegCodeQuery = require('../../db/userQueries/selectUserByRegCodeQuery');
+const updateUserRegCodeQuery = require('../../db/userQueries/updateUserRegCodeQuery');
 
 const validateUser = async (req, res, next) => {
-
     try {
         const { registrationCode } = req.params;
 
         // Si el usuario no existe nos dará un error
-        const user = await selectUserByRegCodeQuery (registrationCode);
+        const user = await selectUserByRegCodeQuery(registrationCode);
 
         // Actualizamos el usuario
-        await updateUserRegCodeQuery(registrationCode)
+        await updateUserRegCodeQuery(registrationCode);
 
-
-        res.send ({
+        res.send({
             status: 'ok',
-            message: 'Activated user',
+            message: 'Usuario activado',
         });
-
     } catch (err) {
         next(err);
     }
-
-}
+};
 
 module.exports = validateUser;

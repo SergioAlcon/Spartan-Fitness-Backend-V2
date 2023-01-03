@@ -1,6 +1,7 @@
 1. Cambio de password
 2. Ejercicios favoritos
+3. Cuando edito los datos del usuario me da error la fecha, ver formato.
+4. editUserPassword no está pasando el patron de contraseñas.
+5. Crear el resto de schemas o models
 
-3. Cuando creo un usuario, me lanza error de que existe en la bbdd pero me lo crea y me deja verificar la cuenta.
-
-4.
+Tutoría DAVID

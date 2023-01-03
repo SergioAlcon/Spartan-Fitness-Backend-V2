@@ -1,9 +1,7 @@
-const { generateError } = require("../../helpers");
-const getConnection = require("../getConnection");
+const { generateError } = require('../../helpers');
+const getConnection = require('../getConnection');
 
-
-
-const selectUserByRegCodeQuery = async (registrationCode) => { 
+const selectUserByRegCodeQuery = async (registrationCode) => {
     let connection;
 
     try {
@@ -13,18 +11,18 @@ const selectUserByRegCodeQuery = async (registrationCode) => {
         const [users] = await connection.query(
             `
             SELECT id FROM users WHERE registrationCode = ?
-            `,[registrationCode]
-            );
-            
-            // Si no existe el usuario lanzamos un error
-            if (users.length < 1) throw generateError('User not found', 404)
+            `,
+            [registrationCode]
+        );
 
-           // Devolvemos el usuario
-            return users[0];
+        // Si no existe el usuario lanzamos un error
+        if (users.length < 1) throw generateError('Usuario no encontrado', 404);
+
+        // Devolvemos el usuario
+        return users[0];
     } finally {
-        if(connection) connection.release();
+        if (connection) connection.release();
     }
-
-}
+};
 
 module.exports = selectUserByRegCodeQuery;
