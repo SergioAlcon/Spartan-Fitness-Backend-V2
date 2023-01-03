@@ -8,8 +8,6 @@ const selectFavExercisesQuery = async (idUser) => {
     try {
         connection = await getConnection();
 
-        console.log(idUser);
-
         let [exercises] = await connection.query(
             `
                 SELECT E.id,
@@ -39,7 +37,6 @@ const selectFavExercisesQuery = async (idUser) => {
             throw generateError('No se ha encontrado ningún ejercicio', 404);
         }
 
-        console.log(exercises);
         return exercises;
     } finally {
         if (connection) connection.release();

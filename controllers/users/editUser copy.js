@@ -1,13 +1,12 @@
 const selectUserByIdQuery = require('../../db/userQueries/selectUserByIdQuery');
 const checkIfEmailDontExists = require('../../db/userQueries/checkIfEmailDontExists');
-const checkIfUsernameDontExists = require('../../db/userQueries/checkIfUsernameDontExists');
+const selectUserByUsernameQuery = require('../../db/userQueries/selectUserByUsernameQuery');
 const updateUserMailQuery = require('../../db/userQueries/updateUserMailQuery');
 const updateUserUsername = require('../../db/userQueries/updateUserUsername');
 const updateUserQuery = require('../../db/userQueries/updateUserQuery');
 const editUserSchema = require('../../validator/editUserShema');
 const { generateError, validateSchema, changeEmail } = require('../../helpers');
 const { v4: uuid } = require('uuid');
-const bcrypt = require('bcrypt');
 
 const editUser = async (req, res, next) => {
     try {
@@ -17,34 +16,33 @@ const editUser = async (req, res, next) => {
         console.log(idUser); */
 
         // Obtenemos los campos del body.
-        let { username, email, password } = req.body;
+        let { username, email } = req.body;
 
         // Si faltan todos los campos lanzamos un error.
         if (!username && !email) {
             throw generateError('Faltan campos', 400);
         }
 
-        if (!password) {
-            throw generateError(
-                'Introduce tu contraseña para verificar los cambios',
-                401
-            );
-        }
+        /* // Validamos los datos del body con joi
+        await validateSchema(editUserSchema, req.body); */
 
         // Obtenemos la info del usuario.
         /* const user = await selectUserByIdQuery(idUser); */
         const user = await selectUserByIdQuery(req.user.id);
 
-        // We check if the passwords match.
-        const validPassword = await bcrypt.compare(password, user.password);
+        console.log(user);
+        /* 
+        console.log('------------user------------------');
+        console.log(user);
 
-        // If the passwords do not match we throw an error.
-        if (!validPassword || user.length < 1) {
-            throw generateError('Contraseña incorrecta', 401);
-        }
-
-        /* // Validamos los datos del body con joi
-        await validateSchema(editUserSchema, req.body); */
+        console.log('-------------user.email-----------------');
+        console.log(user.email);
+        console.log('----------------user.username--------------');
+        console.log(user.username);
+        console.log('----------------username--------------');
+        console.log(username);
+        console.log('----------------email--------------');
+        console.log(email); */
 
         // Variable message que se enviará en el res.send
         let message = 'Usuario actualizado:';
@@ -58,6 +56,14 @@ const editUser = async (req, res, next) => {
         ) {
             throw generateError('No se ha podido actualizar el usuario', 409);
         }
+
+        /* const validateData = {
+            username: username,
+            email: email,
+        };
+
+        // Validamos los datos del body con joi
+        await validateSchema(editUserSchema, validateData); */
 
         // En caso de que actualice su email, comprobamos si es distinto al existente
 
@@ -79,12 +85,20 @@ const editUser = async (req, res, next) => {
         /* En caso de que haya username comprobamos si es distinto al existente
         y que no esté en uso por otro usuario */
 
+        const usernameQuery = await selectUserByUsernameQuery(
+            username,
+            req.user.id
+        );
+
+        console.log(username);
+
+        if (usernameQuery.length > 0) {
+            throw generateError('Ya existe un usuario con ese nombre', 409);
+        }
+
         if (username && username !== user.username) {
-            await checkIfUsernameDontExists(username);
+            await updateUserUsername(username);
 
-            await updateUserUsername(username, req.user.id);
-
-            //Actualizamos el mensage que enviaremos al "res.send".
             message += ' Nombre de usuario actualizado.';
         }
 

@@ -6,11 +6,7 @@ const sgMail = require('@sendgrid/mail');
 // Asignameos el API Key a sendgrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-/**
- * #####################
- * ## GENERATE ERROR  ##
- * #####################
- */
+// GENERATE ERROR
 const generateError = (message, code) => {
     const err = new Error(message);
     err.statusCode = code;

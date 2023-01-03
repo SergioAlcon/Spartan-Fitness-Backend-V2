@@ -65,7 +65,7 @@ app.get('/users/:idUser', authUserOptional, getDataUser);
 app.get('/users/:idUser/favourites', authUser, listUserFavs);
 
 // Activamos de nuevo el usuario con nuevo correo
-app.post('/users/mail/:registrationCode', confirmNewUserMail);
+app.get('/users/mail/:registrationCode', confirmNewUserMail);
 
 // Editamos username e email de Usuario.
 app.put('/users/:idUser', authUser, editUser);

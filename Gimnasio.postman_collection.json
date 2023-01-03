@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "c6419b0f-c813-43f0-af2c-dd30fad6eb00",
 		"name": "Gimnasio",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24720182"
 	},
 	"item": [
 		{
@@ -14,8 +15,46 @@
 						"method": "POST",
 						"header": [],
 						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "sacki",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "sackil25@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "Destiny1985!",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"sergio\",\r\n    \"email\": \"sergio@sergio.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"sackil25@gmail.com\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,13 +62,297 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/users/",
+							"raw": "{{server}}/users/forgot_password",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"users",
-								""
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pruebaaa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sackil25@gmail.com\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/forgot_password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User Data",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ana",
+									"type": "default"
+								},
+								{
+									"key": "surname",
+									"value": "Calle",
+									"type": "default"
+								},
+								{
+									"key": "birthday",
+									"value": "05/05/1920",
+									"type": "default"
+								},
+								{
+									"key": "phone",
+									"value": "666666666",
+									"type": "default"
+								},
+								{
+									"key": "street",
+									"value": "Calle Alcantara 1",
+									"type": "default"
+								},
+								{
+									"key": "postalCode",
+									"value": "06013",
+									"type": "default"
+								},
+								{
+									"key": "province",
+									"value": "Badajoz",
+									"type": "default"
+								},
+								{
+									"key": "city",
+									"value": "Badajoz",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/8/info",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"8",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{sacki_9}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "sackil25@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "username",
+									"value": "sacki",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "Destiny1985!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/9",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{sacki_9}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "sacki85@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "username",
+									"value": "ikcas",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "Destiny1985!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/9",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "oldPassword",
+									"value": "123",
+									"type": "default"
+								},
+								{
+									"key": "newPassword",
+									"value": "1234",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/8/password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"8",
+								"password"
+							],
+							"query": [
+								{
+									"key": "oldPassword",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "newPassword",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User Avatar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "ana",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "ana@ana.com",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/sacki/Downloads/defaultavatar1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/8/avatar",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"8",
+								"avatar"
 							]
 						}
 					},
@@ -42,7 +365,61 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \r\n    \"email\": \"sergio@sergio.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{    \r\n    \"email\": \"sackil25@gmail.com\",\r\n    \"password\": \"Destiny1985!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Ana",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"email\": \"ana@ana.com\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"email\": \"sacki85@gmail.com\",\r\n    \"password\": \"Destiny1985!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,22 +441,154 @@
 				},
 				{
 					"name": "Get Own User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{token_sergio}}",
+								"value": "{{token_ana_8}}",
 								"type": "default"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{server}}/users",
+							"raw": "{{server}}/users/8",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
-								"users"
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/users/8",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{sacki_9}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "newEmail",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "newUsername",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/users/",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Fav Exercises",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{server}}/users/8/favourites",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"8",
+								"favourites"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "flexibilidad",
+									"disabled": true
+								},
+								{
+									"key": "muscle_group",
+									"value": "piernas",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -111,12 +620,12 @@
 								},
 								{
 									"key": "type",
-									"value": "cardio",
+									"value": "flexibilidad",
 									"type": "default"
 								},
 								{
 									"key": "muscle_group",
-									"value": "tren inferior",
+									"value": "brazos",
 									"type": "default"
 								},
 								{
@@ -127,14 +636,9 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/sacki/Downloads/17-junio-rafalafena-.jpg"
+									"src": "/C:/Users/sacki/Downloads/da4e1bf9-c96a-46ba-851f-4f2fd0b8316e.jpg"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{server}}/exercises",
@@ -150,11 +654,25 @@
 				},
 				{
 					"name": "List Exercises",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
 						"url": {
-							"raw": "{{server}}/exercises?type=cardio",
+							"raw": "{{server}}/exercises",
 							"host": [
 								"{{server}}"
 							],
@@ -164,7 +682,8 @@
 							"query": [
 								{
 									"key": "type",
-									"value": "cardio"
+									"value": "flexibilidad",
+									"disabled": true
 								},
 								{
 									"key": "muscle_group",
@@ -178,17 +697,56 @@
 				},
 				{
 					"name": "Get exercise",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "hola",
+									"type": "default"
+								},
+								{
+									"key": "type",
+									"value": "flexibilidad",
+									"type": "default"
+								},
+								{
+									"key": "muscle_group",
+									"value": "brazos",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Vamos a ejercitar gluteos, abdominales y piernas es una rutina dura.",
+									"type": "default"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/sacki/Downloads/da4e1bf9-c96a-46ba-851f-4f2fd0b8316e.jpg"
+								}
+							]
+						},
 						"url": {
-							"raw": "{{server}}/exercises/2",
+							"raw": "{{server}}/exercises/13",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"exercises",
-								"2"
+								"13"
 							]
 						}
 					},
@@ -206,20 +764,20 @@
 							}
 						],
 						"url": {
-							"raw": "{{server}}/exercises/5",
+							"raw": "{{server}}/exercises/1",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"exercises",
-								"5"
+								"1"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Mod exercise",
+					"name": "Edit exercise",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -239,12 +797,12 @@
 								},
 								{
 									"key": "type",
-									"value": "cardio",
+									"value": "aerobico",
 									"type": "default"
 								},
 								{
 									"key": "muscle_group",
-									"value": "acabo de editar esto",
+									"value": "piernas",
 									"type": "default"
 								},
 								{
@@ -255,18 +813,19 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/sacki/Downloads/1fa93.png"
+									"src": "/C:/Users/sacki/Downloads/da4e1bf9-c96a-46ba-851f-4f2fd0b8316e.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{server}}/exercises/6",
+							"raw": "{{server}}/exercises/1/edit",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"exercises",
-								"6"
+								"1",
+								"edit"
 							]
 						}
 					},
@@ -279,19 +838,69 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{token_sergio}}",
+								"value": "{{token_ana_8}}",
 								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "{{server}}/exercises/2/likes",
+							"raw": "{{server}}/exercises/14/likes",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"exercises",
-								"2",
+								"14",
 								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fav Exercise",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/exercises/12/favs",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"exercises",
+								"12",
+								"favs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User favs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ana_8}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{server}}/users/8/favourites",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"8",
+								"favourites"
 							]
 						}
 					},
@@ -327,17 +936,17 @@
 			"type": "default"
 		},
 		{
-			"key": "token_sergio",
-			"value": "",
-			"type": "default"
-		},
-		{
 			"key": "token_admin",
 			"value": "",
 			"type": "default"
 		},
 		{
-			"key": "token_paco",
+			"key": "token_ana_8",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "sacki_9",
 			"value": "",
 			"type": "default"
 		}

@@ -8,6 +8,8 @@ const confirmNewUserMail = async (req, res, next) => {
 
         const user = await selectUserByRegCodeQuery(registrationCode);
 
+        console.log(user);
+
         if (user.length < 1) {
             throw generateError(
                 'No existen usuarios pendientes de validación',

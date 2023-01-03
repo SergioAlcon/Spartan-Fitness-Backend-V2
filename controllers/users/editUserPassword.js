@@ -16,10 +16,6 @@ const editUserPassword = async (req, res, next) => {
         // Obtenemos la info del usuario.
         const user = await selectUserByIdQuery(req.user.id);
 
-        console.log(user);
-        console.log(user.password);
-        console.log(oldPassword);
-
         //Guardamos en una variable un valor booleano: contraseña correcta o incorrecta.
         const isValid = await bcrypt.compare(oldPassword, user.password);
 

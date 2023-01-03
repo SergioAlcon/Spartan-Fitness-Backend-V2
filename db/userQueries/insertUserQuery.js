@@ -2,13 +2,7 @@ const getConnection = require('../getConnection');
 const bcrypt = require('bcrypt');
 const { generateError } = require('../../helpers');
 
-const insertUserQuery = async (
-    username,
-    email,
-    password,
-    avatar,
-    registrationCode
-) => {
+const insertUserQuery = async (username, email, password, registrationCode) => {
     let connection;
 
     try {
@@ -54,15 +48,8 @@ const insertUserQuery = async (
 
         // We create the user.
         await connection.query(
-            `INSERT INTO users (username, email, password, avatar, registrationCode, createdAt) VALUES (?, ?, ?, ?, ?, ?)`,
-            [
-                username,
-                email,
-                hashedPassword,
-                avatar,
-                registrationCode,
-                new Date(),
-            ]
+            `INSERT INTO users (username, email, password, registrationCode, createdAt) VALUES (?, ?, ?, ?, ?)`,
+            [username, email, hashedPassword, registrationCode, new Date()]
         );
     } finally {
         if (connection) connection.release();

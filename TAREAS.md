@@ -1,7 +1,8 @@
-1. Cambio de password
-2. Ejercicios favoritos
-3. Cuando edito los datos del usuario me da error la fecha, ver formato.
-4. editUserPassword no está pasando el patron de contraseñas.
-5. Crear el resto de schemas o models
+1. Recuperar contraseña
+2. Ejercicios favoritos revisar, en react que funcione bien.
+3. editUserPassword no está pasando el patron de contraseñas.
+4. Crear el resto de schemas o models
+5. selectUserByUsernameQuery borrar? no se está usando
+6. Volver a mandar el mensaje de confirmación.
 
 Tutoría DAVID
