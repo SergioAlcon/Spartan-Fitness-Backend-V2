@@ -6,7 +6,11 @@ const sgMail = require('@sendgrid/mail');
 // Asignameos el API Key a sendgrid
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// GENERATE ERROR
+/**
+ * #####################
+ * ## GENERATE ERROR  ##
+ * #####################
+ */
 const generateError = (message, code) => {
     const err = new Error(message);
     err.statusCode = code;
@@ -25,24 +29,33 @@ const validateSchema = async (schema, data) => {
 };
 
 /**
- * ##################
- * ##  SEND  MAIL  ##
- * ##################
+ * #####################
+ * ##  VERIFY  EMAIL  ##
+ * #####################
  */
 
-const sendMail = async ({ to, subject, body }) => {
+const verifyEmail = async (email, registrationCode) => {
+    // Asunto del email
+    const subject = 'Activación de tu usuario SPARTAN Fitness';
+
+    // Mensaje que enviaremos al email del usuario
+    const emailBody = `
+    Te acabas de registrar en SPARTAN Fitness.
+    Pulsa este enlace para verificar tu cuenta: http://${process.env.MYSQL_HOST}:${process.env.PORT}/users/validate/${registrationCode}
+    `;
+
     try {
         const msg = {
-            to,
+            to: email,
             from: process.env.SENDGRID_FROM,
             subject,
-            text: body,
-            htmlL: `
-            <div>
+            text: emailBody,
+            html: `
+                <div>
                     <h2>${subject}</h2>
-                    <p>${body}</p>
+                    <p>${emailBody}</p>
                 </div>
-            `,
+                `,
         };
 
         // Enviamos el mensaje
@@ -53,56 +66,48 @@ const sendMail = async ({ to, subject, body }) => {
 };
 
 /**
- * ##################
- * ## CHANGE EMAIL ##
- * ##################
+ * #####################
+ * ##  CHANGE  EMAIL  ##
+ * #####################
  */
 
 const changeEmail = async (email, registrationCode) => {
     // Asunto del email
     const subject = 'Nuevo correo para activación de usuario';
-    const emailBody = `
-    <h2> Confirmación de cambio de correo </h2>
-    <p> Pulsa en el siguiente enlace para activar tu cuenta con el nuevo correo proporcionado  http://${process.env.MYSQL_HOST}:${process.env.PORT}/users/mail/${registrationCode} </p>
-    `;
-
-    await sendMail({
-        to: email,
-        subject: subject,
-        body: emailBody,
-    });
-};
-
-/**
- * ##################
- * ## VERIFY EMAIL ##
- * ##################
- */
-
-const verifyEmail = async (email, registrationCode) => {
-    // Asunto del email
-    const subject = 'Activación de tu usuario SPARTAN Fitness';
 
     // Mensaje que enviaremos al email del usuario
     const emailBody = `
-    <h3>Te acabas de registrar en SPARTAN Fitness.</h3>
-    <p>Pulsa este enlace para verificar tu cuenta: http://${process.env.MYSQL_HOST}:${process.env.PORT}/users/validate/${registrationCode}
+    Confirmación de cambio de correo.
+    Pulsa este enlace para verificar tu cuenta con el nuevo correo proporcionado: http://${process.env.MYSQL_HOST}:${process.env.PORT}/users/mail/${registrationCode}
     `;
 
-    // Enviamos el mensaje
-    await sendMail({
-        to: email,
-        subject: subject,
-        body: emailBody,
-    });
+    try {
+        const msg = {
+            to: email,
+            from: process.env.SENDGRID_FROM,
+            subject,
+            text: emailBody,
+            html: `
+                <div>
+                    <h2>${subject}</h2>
+                    <p>${emailBody}</p>
+                </div>
+                `,
+        };
+
+        // Enviamos el mensaje
+        await sgMail.send(msg);
+    } catch {
+        throw generateError('Error al mandar el correo');
+    }
 };
 
 /**
- * ################
- * ## SAVE PHOTO ##
- * ################
+ * #####################
+ * ##   SAVE  PHOTO   ##
+ * #####################
  */
-const savePhoto = async (img, type) => {
+const savePhoto = async (img) => {
     // We create an absolute path to the directory where we are going to upload the images.
     const uploadsPath = path.join(__dirname, process.env.UPLOADS_DIR);
 
@@ -118,17 +123,8 @@ const savePhoto = async (img, type) => {
     // We process the image and convert it into a "Sharp" type object.
     const sharpImg = sharp(img.data);
 
-    /*  // We resized the image to prevent them from being too heavy. We assign a maximum width of 800px.
-    sharpImg.resize(350); */ // si activo esto tengo desactivo de 89 al 96
-
-    const imageInfo = await sharpImg.metadata();
-    // Comprobamos el tipo de imagen pasado: 0 avatar ! 1 imagen para productos
-    if (type === 0) {
-        sharpImg.resize(150, 150);
-    } else if (type === 1 && imageInfo.width > 350) {
-        // Solo en caso de ser imagen para producto y mayor de 350px la redimensionamos
-        sharpImg.resize(350, 350);
-    }
+    // We resized the image to prevent them from being too heavy. We assign a maximum width of 800px.
+    sharpImg.resize(350);
 
     // We generate a unique name for the image.
     const imgName = `${uuid()}.jpg`;
@@ -144,9 +140,9 @@ const savePhoto = async (img, type) => {
 };
 
 /**
- * ##################
- * ## DELETE PHOTO ##
- * ##################
+ * #####################
+ * ##  DELETE  PHOTO  ##
+ * #####################
  */
 const deletePhoto = async (imgName) => {
     try {
@@ -177,7 +173,6 @@ module.exports = {
     savePhoto,
     deletePhoto,
     validateSchema,
-    sendMail,
     verifyEmail,
     changeEmail,
 };

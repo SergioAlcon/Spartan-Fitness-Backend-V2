@@ -36,6 +36,9 @@ const {
     getOwnUser,
     getDataUser,
     editUser,
+    editUserData,
+    editUserPassword,
+    editUserAvatar,
     validateUser,
 } = require('./controllers/users');
 
@@ -56,7 +59,16 @@ app.get('/users/:idUser', authUserOptional, getDataUser);
 /* app.get('/users/:idUser', authUser, getOwnUser); */
 
 // Edit and user.
-app.put('/users/:idUser/edit', authUser, editUser);
+app.put('/users/:idUser', authUser, editUser);
+
+// Editamos la contraseña del usuario
+app.put('/users/:idUser/info', authUser, editUserData);
+
+// Editamos los datos del usuario.
+app.put('/users/:idUser/password', authUser, editUserPassword);
+
+// Editamos el avatar del usuario.
+app.put('/users/:idUser/avatar', authUser, editUserAvatar);
 
 // EXERCISES ENDPOINTS
 const {

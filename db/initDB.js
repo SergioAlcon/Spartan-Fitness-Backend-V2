@@ -19,18 +19,28 @@ async function main() {
         console.log('Creando tablas...');
 
         await connection.query(`
-            CREATE TABLE IF NOT EXISTS users (
-                id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-                username VARCHAR(30) UNIQUE NOT NULL,
-                email VARCHAR(100) UNIQUE NOT NULL,
-                password VARCHAR(100) NOT NULL, 
-                avatar VARCHAR(100),
-                registrationCode VARCHAR(100),
-                active BOOLEAN DEFAULT false,
-                role ENUM('admin', 'normal') NOT NULL DEFAULT 'normal',
-                createdAt TIMESTAMP NOT NULL,
-                modifiedAt TIMESTAMP
-            )
+        CREATE TABLE IF NOT EXISTS users (
+            id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+            username VARCHAR(30) UNIQUE NOT NULL,
+            email VARCHAR(100) UNIQUE NOT NULL,
+            password VARCHAR(100) NOT NULL, 
+            role ENUM('admin', 'normal') NOT NULL DEFAULT 'normal',
+            name VARCHAR(30),
+            surname VARCHAR(60),
+            birthday DATETIME NULL,
+            avatar VARCHAR(100),
+            registrationCode VARCHAR(100),
+            active BOOLEAN DEFAULT false,
+            phone CHAR(13),
+            latitude VARCHAR(30),
+            longitude VARCHAR(30),
+            street VARCHAR(50),
+            postalCode CHAR(5),
+            city VARCHAR(30),
+            province VARCHAR(25),
+            createdAt TIMESTAMP NOT NULL,
+            modifiedAt TIMESTAMP
+        )
         `);
 
         await connection.query(`
